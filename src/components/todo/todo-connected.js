@@ -28,15 +28,10 @@ const ToDo = () => {
   };
 
   const _toggleComplete = id => {
-
     let item = list.filter(i => i._id === id)[0] || {};
-
     if (item._id) {
-
       item.complete = !item.complete;
-
       let url = `${todoAPI}/${id}`;
-
       fetch(url, {
         method: 'put',
         mode: 'cors',
@@ -71,13 +66,10 @@ const ToDo = () => {
           There are {list.filter(item => !item.complete).length} Items To Complete
         </h2>
       </header>
-
       <section className="todo">
-
         <div>
           <TodoForm handleSubmit={_addItem} />
         </div>
-
         <div>
           <TodoList
             list={list}
