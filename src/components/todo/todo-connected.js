@@ -10,6 +10,8 @@ const ToDo = () => {
 
   const [list, setList] = useState([]);
 
+  useEffect(_getTodoItems, []);
+
   const _addItem = (item) => {
     item.due = new Date();
     fetch(todoAPI, {
@@ -55,8 +57,6 @@ const ToDo = () => {
       .then(data => setList(data.results))
       .catch(console.error);
   };
-
-  useEffect(_getTodoItems, []);
 
   return (
     <>
