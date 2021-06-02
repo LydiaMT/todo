@@ -17,9 +17,7 @@ function ToDo(props){
 
   const [list, setList] = useState([])
 
-  useEffect(() => {
-    {document.title = `To do List: ${list.length}`}
-  })
+  useEffect(() => {document.title = `To do List: ${list.length}`})
 
   const handleSubmit = (item) => {
     item._id = Math.random();
@@ -37,28 +35,26 @@ function ToDo(props){
   };
 
   useEffect(() => {
-    {
-      let list = [
-        { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A'},
-        { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'},
-        { _id: 3, complete: false, text: 'Walk the Dog', difficulty: 4, assignee: 'Person B'},
-        { _id: 4, complete: true, text: 'Do Homework', difficulty: 3, assignee: 'Person C'},
-        { _id: 5, complete: false, text: 'Take a Nap', difficulty: 1, assignee: 'Person B'},
-      ];
-      setList(list);
-    }
+    let list = [
+      { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A'},
+      { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'},
+      { _id: 3, complete: false, text: 'Walk the Dog', difficulty: 4, assignee: 'Person B'},
+      { _id: 4, complete: true, text: 'Do Homework', difficulty: 3, assignee: 'Person C'},
+      { _id: 5, complete: false, text: 'Take a Nap', difficulty: 1, assignee: 'Person B'},
+    ];
+    setList(list);
   }, [])
 
 
   return (
     <>
-      <Nav class="p-1 mb-2 bg-primary text-white">
+      <Nav className="p-1 mb-2 bg-primary text-white">
         <Navbar>
           <h1>Home</h1>
         </Navbar>
       </Nav>
       <main>
-        <h2 class="p-3 mb-2 bg-dark text-white">
+        <h2 className="p-3 mb-2 bg-dark text-white">
           To Do List Manager ({list.filter(item => !item.complete).length})
         </h2>
         <section className="todo">
