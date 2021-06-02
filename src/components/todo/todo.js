@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 
+// Bootstrap
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+// import Button from 'react-bootstrap/Button'
+// import Form from 'react-bootstrap/Form'
+// import Card from 'react-bootstrap/Card'
+
+// Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './todo.scss';
 
 function ToDo(props){
@@ -43,22 +52,28 @@ function ToDo(props){
 
   return (
     <>
-      <header>
-        <h2>
-        There are {list.filter(item => !item.complete).length} Items To Complete
+      <Nav class="p-1 mb-2 bg-primary text-white">
+        <Navbar>
+          <h1>Home</h1>
+        </Navbar>
+      </Nav>
+      <main>
+        <h2 class="p-3 mb-2 bg-dark text-white">
+          To Do List Manager ({list.filter(item => !item.complete).length})
         </h2>
-      </header>
-      <section className="todo">
-        <div>
-          <TodoForm handleSubmit={handleSubmit} />
-        </div>
-        <div>
-          <TodoList
-            list={list}
-            handleComplete={toggleComplete}
-          />
-        </div>
-      </section>
+        <section className="todo">
+          <div>
+            <TodoForm handleSubmit={handleSubmit} />
+          </div>
+          <div>
+            <TodoList
+              list={list}
+              handleComplete={toggleComplete}
+            />
+          </div>
+        </section>
+      </main>
+
     </>
   );
 
