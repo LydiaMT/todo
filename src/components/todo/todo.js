@@ -54,7 +54,6 @@ function ToDo(props){
         </div>
         <div>
           <TodoList
-            // onLoad={componentDidMount}
             list={list}
             handleComplete={toggleComplete}
           />
