@@ -14,10 +14,8 @@ function TodoForm(props){
     e.preventDefault();
     e.target.reset();
     props.handleSubmit(item);
-    // const item = {};
     setItem({});
   };
-
 
   return (
     <>

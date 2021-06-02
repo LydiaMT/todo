@@ -2,15 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ListGroup from 'react-bootstrap/ListGroup'
 
-// [
-//   'success',
-//   'danger',
-// ].map((variant, idx) => (
-//   <Alert key={idx} variant={variant}>
-//     This is a {variant} alert—check it out!
-//   </Alert>
-// ));
-
 function TodoList(props){
 
   return (

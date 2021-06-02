@@ -5,10 +5,6 @@ import TodoList from './list.js';
 // Bootstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// import Button from 'react-bootstrap/Button'
-// import Form from 'react-bootstrap/Form'
-// import Card from 'react-bootstrap/Card'
-
 // Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './todo.scss';
@@ -17,7 +13,9 @@ function ToDo(props){
 
   const [list, setList] = useState([])
 
-  useEffect(() => {document.title = `To do List: ${list.length}`})
+  useEffect(() => {
+    document.title = `To do List: ${list.filter(i => !i.complete).length}`
+  }, [list])
 
   const handleSubmit = (item) => {
     item._id = Math.random();
