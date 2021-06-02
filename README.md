@@ -3,9 +3,9 @@
 
 ## Links & Resources
 
-✨ [Deployed Site](https://resty-api.netlify.app/)
+✨ [Deployed Site](https://todo-lmt.netlify.app/)
 
-✨ [Pull Request](https://github.com/LydiaMT/resty/pull/3)
+✨ [Pull Request](https://github.com/LydiaMT/todo/pull/3)
 
 ## About this Application 
 
@@ -21,4 +21,6 @@ Today, we begin the first of a 4-phase build of the To Do List Manager, a web-ba
 
 # Day 1
 
-## Event Flow
+## Event Architecture
+
+![UML](img/todo1.jpg)
