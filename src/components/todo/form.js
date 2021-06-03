@@ -7,6 +7,11 @@ function TodoForm(props){
   
   const [ handleSubmit, handleChange ] = useForm(props.addItem)
 
+  function todo(e){
+    handleSubmit(e);
+    handleChange(e);
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>

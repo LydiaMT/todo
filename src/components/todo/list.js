@@ -16,14 +16,6 @@ function TodoList(props){
   const [open, setOpen] = useState(false);
   const [handleSubmit, values] = useForm(editTodo)
 
-  // const toggleField = (id) => {
-  //   if (open) {
-  //     setOpen(false);
-  //   } else {
-  //     setOpen(true);
-  //   }
-  // };
-
   const toggleField = (id) => {
     setOpen(!open)
     setId(id)

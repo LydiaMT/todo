@@ -2,42 +2,79 @@ import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 
+// Bootstrap
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+// Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './todo.scss';
 
-const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
+import './todo.scss';
+
+const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
+// const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
 const ToDo = () => {
 
   const [list, setList] = useState([]);
+  const [item, setItem] = useState({})
 
-  useEffect(_getTodoItems, []);
-
-  const addItem = (item) => {
+  const _addItem = (item) => {
     item.due = new Date();
+    console.log("HI!", JSON.stringify(item))
     fetch(todoAPI, {
       method: 'post',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
+      // headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     })
       .then(response => response.json())
       .then(savedItem => {
-        setList([...list, savedItem])
+        setList([...list, savedItem]);
       })
       .catch(console.error);
   };
 
-  const toggleComplete = id => {
+  const _updateItem = (id, val) => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if(item._id){
+      fetch(`${todoAPI}/${id}`, {
+        method: 'put',
+        body: JSON.stringify(val)
+      })
+        .then(response => response.json())
+        .then(() => {
+          item.text = val
+          let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+          setList(newList);
+        })
+        .catch(console.error);
+    }
+  };
+
+  const _deleteItem = (id) => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if(item._id){
+      fetch(`${todoAPI}/${id}`, {
+        method: 'delete',
+        body: JSON.stringify(item)
+      })
+        .then(response => response.json())
+        .then(() => {
+          let newList = list.filter(listItem => listItem._id !== id);
+          setList(newList);
+        })
+        .catch(console.error);
+    }
+  };
+
+  const _toggleComplete = id => {
     let item = list.filter(i => i._id === id)[0] || {};
     if (item._id) {
       item.complete = !item.complete;
       let url = `${todoAPI}/${id}`;
       fetch(url, {
         method: 'put',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
+        // headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
       })
         .then(response => response.json())
@@ -51,31 +88,47 @@ const ToDo = () => {
   const _getTodoItems = () => {
     fetch(todoAPI, {
       method: 'get',
-      mode: 'cors',
+      // mode: 'no-cors',
     })
       .then(data => data.json())
-      .then(data => setList(data.results))
+      .then(data => {
+        console.log("DATA", data)
+        setList(data)
+      })
       .catch(console.error);
   };
 
+  useEffect(_getTodoItems, []);
+
   return (
     <>
-      <header>
-        <h2>
-          There are {list.filter(item => !item.complete).length} Items To Complete
+      <Nav className="p-1 mb-2 bg-primary text-white">
+        <Navbar>
+          <h1>Home</h1>
+        </Navbar>
+      </Nav>
+      <main>
+        <h2 className="p-3 mb-2 bg-dark text-white">
+          To Do List Manager ({list.filter(item => !item.complete).length})
         </h2>
-      </header>
-      <section className="todo">
-        <div>
-          <TodoForm handleSubmit={_addItem} />
-        </div>
-        <div>
-          <TodoList
-            list={list}
-            handleComplete={_toggleComplete}
-          />
-        </div>
-      </section>
+        <section className="todo">
+          <div>
+            <TodoForm 
+              addItem={_addItem}
+              updateItem={_updateItem}
+              />
+          </div>
+          <div>
+            <TodoList
+              list={list}
+              toggleComplete={_toggleComplete}
+              deleteItem={_deleteItem}
+              updateItem={_updateItem}
+            />
+          </div>
+        </section>
+      </main>
+
     </>
   );
 };
