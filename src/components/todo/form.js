@@ -1,4 +1,4 @@
-import React,  { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from 'react-bootstrap/Button'
 import useForm from '../../hooks/form'
@@ -7,10 +7,10 @@ function TodoForm(props){
   
   const [ handleSubmit, handleChange ] = useForm(props.addItem)
 
-  function todo(e){
-    handleSubmit(e);
-    handleChange(e);
-  }
+  // function todo(e){
+  //   handleSubmit(e);
+  //   handleChange(e);
+  // }
 
   return (
     <>

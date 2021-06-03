@@ -17,14 +17,14 @@ const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
 const ToDo = () => {
 
   const [list, setList] = useState([]);
-  const [item, setItem] = useState({})
+  // const [item, setItem] = useState({})
 
   const _addItem = (item) => {
     item.due = new Date();
     console.log("HI!", JSON.stringify(item))
     fetch(todoAPI, {
       method: 'post',
-      // headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     })
       .then(response => response.json())
@@ -74,7 +74,7 @@ const ToDo = () => {
       let url = `${todoAPI}/${id}`;
       fetch(url, {
         method: 'put',
-        // headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
       })
         .then(response => response.json())

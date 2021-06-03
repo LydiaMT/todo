@@ -5,7 +5,12 @@
 
 ✨ [Deployed Site](https://todo-lmt.netlify.app/)
 
-✨ [Pull Request](https://github.com/LydiaMT/todo/pull/3)
+✨ [Pull Request](https://github.com/LydiaMT/todo/pull/5)
+
+✨ [My API](https://lydia-api-server.herokuapp.com/todo)
+
+✨ [Class API](https://github.com/LydiaMT/todo/pull/5)
+
 
 ## About this Application 
 
