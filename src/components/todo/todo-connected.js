@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+// import { SettingsContext } from '../../context/context'
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import Navbar from 'react-bootstrap/Navbar'
@@ -12,6 +13,14 @@ const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
 const ToDo = () => {
 
   const [list, setList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postPerPage] = useState(3)
+
+  // const context = useContext(SettingsContext)
+
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage
+  const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost)
 
   const _addItem = (item) => {
     item.due = new Date();
@@ -114,7 +123,7 @@ const ToDo = () => {
           </div>
           <div>
             <TodoList
-              list={list}
+              list={currentPosts}
               toggleComplete={_toggleComplete}
               deleteItem={_deleteItem}
               updateItem={_updateItem}
