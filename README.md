@@ -42,3 +42,7 @@ Today, we begin the first of a 4-phase build of the To Do List Manager, a web-ba
 - As a user, I would like the option to change my default preferences with regards to how many Items I see per page, which items are filtered, and how they are sorted
 
 ## Event Architecture
+
+### References
+
+[Simple Frontend Pagination | React](https://www.youtube.com/watch?v=IYCa1F-OWmk)

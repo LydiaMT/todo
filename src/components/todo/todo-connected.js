@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, /*useContext*/ } from 'react';
 // import { SettingsContext } from '../../context/context'
 import TodoForm from './form.js';
 import TodoList from './list.js';
+import Pagination from '../pagination.js'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -103,6 +104,8 @@ const ToDo = () => {
 
   useEffect(_getTodoItems, []);
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
   return (
     <>
       <Nav className="p-1 mb-2 bg-primary text-white">
@@ -129,6 +132,11 @@ const ToDo = () => {
               updateItem={_updateItem}
               />
           </div>
+          <Pagination 
+            postsPerPage={postPerPage} 
+            totalPosts={list.length}
+            paginate={paginate}
+            />
         </section>
       </main>
     </>
