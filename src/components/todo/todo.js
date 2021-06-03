@@ -11,7 +11,40 @@ import './todo.scss';
 
 function ToDo(props){
 
+  const [item, setItem] = useState({})
   const [list, setList] = useState([])
+
+  const addItem = (item) => {
+    item._id = Math.random();
+    item.complete = false;
+    setList([...list, item]);
+  };
+
+  const deleteItem = id => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if (item._id) {
+      let newList = list.filter(listItem => listItem._id !== id);
+      setList(newList);
+    }
+  }
+
+  const updateItem = (id, val) => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if(item._id){
+      item.text = val
+      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+      setList(newList);
+    }
+  }
+
+  const toggleComplete = id => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if (item._id) {
+      item.complete = !item.complete;
+      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+      setList(newList);
+    }
+  };
 
   useEffect(() => {
     document.title = `To do List: ${list.filter(i => !i.complete).length}`
@@ -28,21 +61,6 @@ function ToDo(props){
     setList(list);
   }, [])
 
-  const handleSubmit = (item) => {
-    item._id = Math.random();
-    item.complete = false;
-    setList([...list, item]);
-  };
-
-  const toggleComplete = id => {
-    let item = list.filter(i => i._id === id)[0] || {};
-    if (item._id) {
-      item.complete = !item.complete;
-      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
-      setList(newList);
-    }
-  };
-
   return (
     <>
       <Nav className="p-1 mb-2 bg-primary text-white">
@@ -56,12 +74,17 @@ function ToDo(props){
         </h2>
         <section className="todo">
           <div>
-            <TodoForm handleSubmit={handleSubmit} />
+            <TodoForm 
+              addItem={addItem}
+              updateItem={updateItem}
+              />
           </div>
           <div>
             <TodoList
               list={list}
-              handleComplete={toggleComplete}
+              toggleComplete={toggleComplete}
+              deleteItem={deleteItem}
+              updateItem={updateItem}
             />
           </div>
         </section>

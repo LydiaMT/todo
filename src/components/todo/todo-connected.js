@@ -12,7 +12,7 @@ const ToDo = () => {
 
   useEffect(_getTodoItems, []);
 
-  const _addItem = (item) => {
+  const addItem = (item) => {
     item.due = new Date();
     fetch(todoAPI, {
       method: 'post',
@@ -28,7 +28,7 @@ const ToDo = () => {
       .catch(console.error);
   };
 
-  const _toggleComplete = id => {
+  const toggleComplete = id => {
     let item = list.filter(i => i._id === id)[0] || {};
     if (item._id) {
       item.complete = !item.complete;

@@ -21,4 +21,4 @@ const useForm = (callback) => {
 
 }
 
-export default useForm 
+export default useForm; 
