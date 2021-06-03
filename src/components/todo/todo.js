@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoForm from './form.js';
-import TodoList from './list.js';
+// import TodoList from './list.js';
 
 // Bootstrap
 import Navbar from 'react-bootstrap/Navbar'
@@ -11,17 +11,31 @@ import './todo.scss';
 
 function ToDo(props){
 
+  const [item, setItem] = useState({})
   const [list, setList] = useState([])
 
-  useEffect(() => {
-    document.title = `To do List: ${list.filter(i => !i.complete).length}`
-  }, [list])
-
-  const handleSubmit = (item) => {
+  const addItem = (item) => {
     item._id = Math.random();
     item.complete = false;
     setList([...list, item]);
   };
+
+  const deleteItem = id => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if (item._id) {
+      let newList = list.filter(listItem => listItem._id !== id);
+      setList(newList);
+    }
+  }
+
+  const updateItem = (id, val) => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if(item._id){
+      item.text = val
+      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+      setList(newList);
+    }
+  }
 
   const toggleComplete = id => {
     let item = list.filter(i => i._id === id)[0] || {};
@@ -33,6 +47,10 @@ function ToDo(props){
   };
 
   useEffect(() => {
+    document.title = `To do List: ${list.filter(i => !i.complete).length}`
+  }, [list])
+
+  useEffect(() => {
     let list = [
       { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A'},
       { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'},
@@ -42,7 +60,6 @@ function ToDo(props){
     ];
     setList(list);
   }, [])
-
 
   return (
     <>
@@ -57,12 +74,17 @@ function ToDo(props){
         </h2>
         <section className="todo">
           <div>
-            <TodoForm handleSubmit={handleSubmit} />
+            <TodoForm 
+              addItem={addItem}
+              updateItem={updateItem}
+              />
           </div>
           <div>
             <TodoList
               list={list}
-              handleComplete={toggleComplete}
+              toggleComplete={toggleComplete}
+              deleteItem={deleteItem}
+              updateItem={updateItem}
             />
           </div>
         </section>
