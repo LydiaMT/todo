@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TodoForm from './form.js';
 // import TodoList from './list.js';
-
-// Bootstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './todo.scss';
 
@@ -85,11 +82,10 @@ function ToDo(props){
               toggleComplete={toggleComplete}
               deleteItem={deleteItem}
               updateItem={updateItem}
-            />
+              />
           </div>
         </section>
       </main>
-
     </>
   );
 

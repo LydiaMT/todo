@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-
-// Bootstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './todo.scss';
-
 import './todo.scss';
 
 const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
@@ -17,7 +12,6 @@ const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
 const ToDo = () => {
 
   const [list, setList] = useState([]);
-  // const [item, setItem] = useState({})
 
   const _addItem = (item) => {
     item.due = new Date();
@@ -124,11 +118,10 @@ const ToDo = () => {
               toggleComplete={_toggleComplete}
               deleteItem={_deleteItem}
               updateItem={_updateItem}
-            />
+              />
           </div>
         </section>
       </main>
-
     </>
   );
 };

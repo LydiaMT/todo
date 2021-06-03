@@ -1,12 +1,14 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 import ToDo from './components/todo/todo-connected.js';
+import SettingsContext from './context/context'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App () {
   return (
     <>
+    <SettingsContext>
       <ToDo />
+    </SettingsContext>
     </>
   );
 }
