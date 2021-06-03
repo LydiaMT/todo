@@ -6,6 +6,9 @@ import Form from 'react-bootstrap/Form';
 import { When } from 'react-if'
 import { FormControl } from 'react-bootstrap'
 import useForm from '../../hooks/form.js'
+import Card from 'react-bootstrap/Card'
+import Badge from 'react-bootstrap/Badge'
+import Modal from 'react-bootstrap/Modal'
 
 
 function TodoList(props){
@@ -27,29 +30,45 @@ function TodoList(props){
 
   return (
     <>
-      
-        {props.list.map((item) => (
-          <ListGroup horizontal key={item._id}>
-            <ListGroup.Item
+      <When condition={open === true}>
+        <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>Update your item</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <FormControl onChange={(e) => setValue(e.target.value)} placeholder="update todo"/>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={(e) => {handleSubmit(e); toggleField(id)}}>Update</Button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </When>  
+      {props.list.map((item) => (
+        <Card key={item._id}>
+          <Card.Header>
+          <Badge 
+            pill variant={item.complete ? "danger" : "success"}
+            onClick={() => props.toggleComplete(item._id)}  
+            >
+            {item.complete===true ? `Complete` : `Pending`}
+          </Badge>
+            {item.assignee}
+            <Button variant="light" type="submit" onClick={()=> props.deleteItem(item._id)}>X</Button>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text
               className={`complete-${item.complete.toString()}`}
               key={item._id}
-              variant={item.complete ? "danger" : "success"}
-              onClick={() => props.toggleComplete(item._id)} 
-            >
-              <span>
-                {item.text}
-              </span>
-            </ListGroup.Item>
-            <Button onClick={()=> toggleField(item._id)}>Update</Button>
-            <Button type="submit" onClick={()=> props.deleteItem(item._id)}>X</Button>
-          </ListGroup>
-        ))}
-          <When condition={open === true}>
-            <Form>
-              <FormControl onChange={(e) => setValue(e.target.value)} placeholder="update todo"/>
-              <Button onClick={(e) => {handleSubmit(e); toggleField(id)}}>submit</Button>
-            </Form>
-          </When>  
+              onClick={()=> toggleField(item._id)}             
+              >
+              {item.text}
+            </Card.Text>
+            <Card.Text>
+              Difficulty: {item.difficulty}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      ))}
     </>
   );
 
