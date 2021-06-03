@@ -14,7 +14,7 @@ function TodoList(props){
   const [id, setId] = useState('')
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false);
-  const [handleSubmit, values] = useForm(editTodo)
+  const [handleSubmit] = useForm(editTodo)
 
   const toggleField = (id) => {
     setOpen(!open)
@@ -30,7 +30,7 @@ function TodoList(props){
     <>
       
         {props.list.map((item) => (
-          <ListGroup horizontal>
+          <ListGroup horizontal key={item._id}>
             <ListGroup.Item
               className={`complete-${item.complete.toString()}`}
               key={item._id}
