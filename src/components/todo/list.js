@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { When } from 'react-if'
 import { FormControl } from 'react-bootstrap'
 import useForm from '../../hooks/form.js'
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
 import Modal from 'react-bootstrap/Modal'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function TodoList(props){
