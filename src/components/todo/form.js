@@ -7,11 +7,6 @@ function TodoForm(props){
   
   const [ handleSubmit, handleChange ] = useForm(props.addItem)
 
-  // function todo(e){
-  //   handleSubmit(e);
-  //   handleChange(e);
-  // }
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -22,17 +17,31 @@ function TodoForm(props){
             name="text"
             placeholder="Item Details"
             onChange={handleChange}
-          />
+            />
         </label>
         <label>
           <span>Assigned To</span>
-          <input type="text" name="assignee" placeholder="Assignee Name" onChange={handleChange} />
+          <input 
+            type="text" 
+            name="assignee" 
+            placeholder="Assignee Name" 
+            onChange={handleChange} 
+            />
         </label>
         <label>
           <span>Difficulty Rating</span>
-          <input defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleChange} />
+          <input 
+            defaultValue="1" 
+            type="range" 
+            min="1" 
+            max="5" 
+            name="difficulty" 
+            onChange={handleChange} 
+            />
         </label>
-        <Button variant="primary" type="submit">Add Item</Button>
+        <Button 
+          variant="primary" 
+          type="submit">Add Item</Button>
       </form>
     </>
   );

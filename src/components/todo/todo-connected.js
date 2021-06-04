@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { SettingsContext } from '../../context/context'
 import TodoForm from './form.js';
 import TodoList from './list.js';
-
-// Bootstrap
+import Pagination from '../pagination.js'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './todo.scss';
-
 import './todo.scss';
 
 const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
@@ -17,11 +14,13 @@ const todoAPI = 'https://lydia-api-server.herokuapp.com/todo';
 const ToDo = () => {
 
   const [list, setList] = useState([]);
-  // const [item, setItem] = useState({})
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postPerPage] = useState(3)
+
+  const context = useContext(SettingsContext)
 
   const _addItem = (item) => {
     item.due = new Date();
-    console.log("HI!", JSON.stringify(item))
     fetch(todoAPI, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -92,13 +91,34 @@ const ToDo = () => {
     })
       .then(data => data.json())
       .then(data => {
-        console.log("DATA", data)
         setList(data)
       })
       .catch(console.error);
   };
 
   useEffect(_getTodoItems, []);
+
+  const itemsSorted = list.sort((left, right) => {
+    console.log("left", left)
+    console.log("right", right)
+    if(!context.sortList){
+      return left.difficulty - right.difficulty
+    } 
+    return list
+  })
+
+  const itemsToShow = itemsSorted.filter((item) => {
+    if(!context.pending){
+      return true
+    } else {
+      return !item.complete
+    }
+  })
+
+  // for Pagination
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage
+  const currentPosts = itemsToShow.slice(indexOfFirstPost, indexOfLastPost)
 
   return (
     <>
@@ -120,15 +140,22 @@ const ToDo = () => {
           </div>
           <div>
             <TodoList
-              list={list}
               toggleComplete={_toggleComplete}
               deleteItem={_deleteItem}
               updateItem={_updateItem}
-            />
+              postsPerPage={postPerPage} 
+              totalPosts={list.length}
+              setCurrentPage={setCurrentPage}
+              itemsToShow={currentPosts}
+              />
           </div>
+          <Pagination 
+            postsPerPage={postPerPage} 
+            totalPosts={itemsToShow.length}
+            setCurrentPage={setCurrentPage}
+          />
         </section>
       </main>
-
     </>
   );
 };

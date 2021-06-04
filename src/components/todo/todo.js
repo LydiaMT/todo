@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
+// import { SettingsContext } from '../../context/context'
 import TodoForm from './form.js';
 // import TodoList from './list.js';
-
-// Bootstrap
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './todo.scss';
 
@@ -13,6 +11,7 @@ function ToDo(props){
 
   const [item, setItem] = useState({})
   const [list, setList] = useState([])
+
 
   const addItem = (item) => {
     item._id = Math.random();
@@ -61,6 +60,8 @@ function ToDo(props){
     setList(list);
   }, [])
 
+  // const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
     <>
       <Nav className="p-1 mb-2 bg-primary text-white">
@@ -76,7 +77,6 @@ function ToDo(props){
           <div>
             <TodoForm 
               addItem={addItem}
-              updateItem={updateItem}
               />
           </div>
           <div>
@@ -85,11 +85,10 @@ function ToDo(props){
               toggleComplete={toggleComplete}
               deleteItem={deleteItem}
               updateItem={updateItem}
-            />
+              />
           </div>
         </section>
       </main>
-
     </>
   );
 
