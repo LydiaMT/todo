@@ -6,7 +6,7 @@ function TodoCard({item, toggleComplete, deleteItem, toggleField}){
 
   return (
     <>
-      <div className="toast" 
+      <div 
         key={item._id}
         className="shadow mb-3 mr-0 bg-white rounded list"
         >
@@ -22,7 +22,7 @@ function TodoCard({item, toggleComplete, deleteItem, toggleField}){
           <span className="font-weight-bold">{item.assignee}</span>
         </div>
         <div>
-        <button type="submit" class="close" aria-label="Close"
+        <button type="submit" className="close" aria-label="Close"
             onClick={()=> deleteItem(item._id)}
             >
               <span aria-hidden="true">&times;</span>

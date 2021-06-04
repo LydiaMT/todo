@@ -99,8 +99,6 @@ const ToDo = () => {
   useEffect(_getTodoItems, []);
 
   const itemsSorted = list.sort((left, right) => {
-    console.log("left", left)
-    console.log("right", right)
     if(!context.sortList){
       return left.difficulty - right.difficulty
     } 
