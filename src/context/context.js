@@ -4,20 +4,13 @@ export const SettingsContext = React.createContext();
 
 function SettingsProvider(props) {
   const [pending , setPending]  = useState(null) //Boolean
- //Number postPerPage, setPostsPerPage
-  const [sort, setSort] = useState('difficulty') //String
+  const [sortList, setSortList] = useState('difficulty') //String
   
-  // pending = () => setPending()
-
   const state = {
     pending,
-    // currentPage,
-    // todoCount,
-    sort,
+    sortList,
     changePendingTo: setPending,
-    // changeCurrentPageTo: setCurrentPage,
-    // changeTodoCountTo : setTodoCount,
-    changeSortTo: setSort
+    changeSortTo: setSortList
   }
 
   return(

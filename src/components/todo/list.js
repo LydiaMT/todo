@@ -1,14 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { SettingsContext } from '../../context/context'
-import Button from 'react-bootstrap/Button';
+import Pagination from '../pagination.js'
+import useForm from '../../hooks/form.js'
+import TodoCard from './todo-card.js'
 import { When } from 'react-if'
 import { FormControl } from 'react-bootstrap'
-import useForm from '../../hooks/form.js'
-import Card from 'react-bootstrap/Card'
-import Badge from 'react-bootstrap/Badge'
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 
 function TodoList(props){
 
@@ -53,86 +52,15 @@ function TodoList(props){
           >Show Pending Only</Button>
         <Button 
           variant="secondary"
-          onClick={() => context.changeSortTo(false)}
+          onClick={() => context.changeSortTo(!context.sortList)}
           >Sort by Difficulty</Button>
-        {props.list.map((item) => 
-          // if user clicks pending only button
-          // show only items where complete === false
-          context.pending ?(
-            !item.complete && (
-              <Card 
-              key={item._id}
-              className="shadow p-3 mb-5 bg-white rounded list"
-              >
-              <Card.Header className="text-secondary">
-              <Badge 
-                pill variant={item.complete ? "danger" : "success"}
-                className="m-3"
-                onClick={() => props.toggleComplete(item._id)}  
-                >
-                {item.complete===true ? `Complete` : `Pending`}
-              </Badge>
-              <span className="font-weight-bold">{item.assignee}</span>
-                <Button 
-                  variant="light" 
-                  type="submit"
-                  onClick={()=> props.deleteItem(item._id)}
-                  className="float-right text-secondary font-weight-bold"
-                  >
-                    X
-                  </Button>
-              </Card.Header>
-              <Card.Body>
-                <Card.Text
-                  className={`complete-${item.complete.toString()}`}
-                  key={item._id}
-                  onClick={()=> toggleField(item._id)}             
-                  >
-                  {item.text}
-                </Card.Text>
-                <Card.Text className="text-sm-right">
-                  Difficulty: {item.difficulty}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            )
-            ) : (
-              <Card 
-              key={item._id}
-              className="shadow p-3 mb-5 bg-white rounded list"
-              >
-              <Card.Header className="text-secondary">
-              <Badge 
-                pill variant={item.complete ? "danger" : "success"}
-                className="m-3"
-                onClick={() => props.toggleComplete(item._id)}  
-                >
-                {item.complete===true ? `Complete` : `Pending`}
-              </Badge>
-              <span className="font-weight-bold">{item.assignee}</span>
-                <Button 
-                  variant="light" 
-                  type="submit"
-                  onClick={()=> props.deleteItem(item._id)}
-                  className="float-right text-secondary font-weight-bold"
-                  >
-                    X
-                  </Button>
-              </Card.Header>
-              <Card.Body>
-                <Card.Text
-                  className={`complete-${item.complete.toString()}`}
-                  key={item._id}
-                  onClick={()=> toggleField(item._id)}             
-                  >
-                  {item.text}
-                </Card.Text>
-                <Card.Text className="text-sm-right">
-                  Difficulty: {item.difficulty}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          )
+        {props.itemsToShow.map((item) => 
+          (<TodoCard 
+            toggleComplete={props.toggleComplete}
+            deleteItem={props.deleteItem}
+            toggleField={toggleField}
+            item={item}
+          />)
         )}
       </section>
     </>

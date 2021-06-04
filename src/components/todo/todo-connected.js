@@ -1,5 +1,5 @@
-import React, { useEffect, useState, /*useContext*/ } from 'react';
-// import { SettingsContext } from '../../context/context'
+import React, { useEffect, useState, useContext } from 'react';
+import { SettingsContext } from '../../context/context'
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import Pagination from '../pagination.js'
@@ -15,13 +15,9 @@ const ToDo = () => {
 
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage] = useState(3)
+  const [postPerPage] = useState(2)
 
-  // const context = useContext(SettingsContext)
-
-  const indexOfLastPost = currentPage * postPerPage
-  const indexOfFirstPost = indexOfLastPost - postPerPage
-  const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost)
+  const context = useContext(SettingsContext)
 
   const _addItem = (item) => {
     item.due = new Date();
@@ -104,7 +100,17 @@ const ToDo = () => {
 
   useEffect(_getTodoItems, []);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const itemsToShow = list.filter((item) => {
+    if(!context.pending){
+      return true
+    } else {
+      return !item.complete
+    }
+  })
+
+  const indexOfLastPost = currentPage * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage
+  const currentPosts = itemsToShow.slice(indexOfFirstPost, indexOfLastPost)
 
   return (
     <>
@@ -126,17 +132,20 @@ const ToDo = () => {
           </div>
           <div>
             <TodoList
-              list={currentPosts}
               toggleComplete={_toggleComplete}
               deleteItem={_deleteItem}
               updateItem={_updateItem}
+              postsPerPage={postPerPage} 
+              totalPosts={list.length}
+              setCurrentPage={setCurrentPage}
+              itemsToShow={currentPosts}
               />
           </div>
           <Pagination 
             postsPerPage={postPerPage} 
-            totalPosts={list.length}
-            paginate={paginate}
-            />
+            totalPosts={itemsToShow.length}
+            setCurrentPage={setCurrentPage}
+          />
         </section>
       </main>
     </>
