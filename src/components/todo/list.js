@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { SettingsContext } from '../../context/context'
-import Pagination from '../pagination.js'
 import useForm from '../../hooks/form.js'
 import TodoCard from './todo-card.js'
 import { When } from 'react-if'
@@ -56,6 +55,7 @@ function TodoList(props){
           >Sort by Difficulty</Button>
         {props.itemsToShow.map((item) => 
           (<TodoCard 
+            key={item._id}
             toggleComplete={props.toggleComplete}
             deleteItem={props.deleteItem}
             toggleField={toggleField}

@@ -15,13 +15,12 @@ const ToDo = () => {
 
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage] = useState(2)
+  const [postPerPage] = useState(3)
 
   const context = useContext(SettingsContext)
 
   const _addItem = (item) => {
     item.due = new Date();
-    console.log("HI!", JSON.stringify(item))
     fetch(todoAPI, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -92,7 +91,6 @@ const ToDo = () => {
     })
       .then(data => data.json())
       .then(data => {
-        console.log("DATA", data)
         setList(data)
       })
       .catch(console.error);
@@ -100,7 +98,16 @@ const ToDo = () => {
 
   useEffect(_getTodoItems, []);
 
-  const itemsToShow = list.filter((item) => {
+  const itemsSorted = list.sort((left, right) => {
+    console.log("left", left)
+    console.log("right", right)
+    if(!context.sortList){
+      return left.difficulty - right.difficulty
+    } 
+    return list
+  })
+
+  const itemsToShow = itemsSorted.filter((item) => {
     if(!context.pending){
       return true
     } else {
@@ -108,6 +115,7 @@ const ToDo = () => {
     }
   })
 
+  // for Pagination
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage
   const currentPosts = itemsToShow.slice(indexOfFirstPost, indexOfLastPost)
