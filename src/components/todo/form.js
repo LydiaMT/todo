@@ -8,8 +8,8 @@ function TodoForm(props){
   const [ handleSubmit, handleChange ] = useForm(props.addItem)
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className="mr-2">
+      <form onSubmit={handleSubmit} className="w-100">
       <h3>Add To Do Item</h3>
         <label>
           <span>To Do Item</span>
@@ -43,7 +43,7 @@ function TodoForm(props){
           variant="primary" 
           type="submit">Add Item</Button>
       </form>
-    </>
+    </div>
   );
 
 }

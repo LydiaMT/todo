@@ -131,7 +131,7 @@ const ToDo = () => {
         <h2 className="p-3 mb-2 bg-dark text-white">
           To Do List Manager ({list.filter(item => !item.complete).length})
         </h2>
-        <section className="todo">
+        <section className="todo d-flex justify-content-between">
           <div>
             <TodoForm 
               addItem={_addItem}
@@ -148,12 +148,14 @@ const ToDo = () => {
               setCurrentPage={setCurrentPage}
               itemsToShow={currentPosts}
               />
+            <div>
+              <Pagination 
+                postsPerPage={postPerPage} 
+                totalPosts={itemsToShow.length}
+                setCurrentPage={setCurrentPage}
+                />
+            </div>
           </div>
-          <Pagination 
-            postsPerPage={postPerPage} 
-            totalPosts={itemsToShow.length}
-            setCurrentPage={setCurrentPage}
-          />
         </section>
       </main>
     </>
