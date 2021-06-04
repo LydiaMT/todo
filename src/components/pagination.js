@@ -13,9 +13,9 @@ const Pagination = ({ postsPerPage, totalPosts, setCurrentPage }) => {
       <ul className="pagination">
         {pageNumbers.map(number => (
           <li key={number} className="page-item">
-            <a onClick={() => setCurrentPage(number)} href="#" className="page-link">
+            <button onClick={() => setCurrentPage(number)} className="page-link">
               {number}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
