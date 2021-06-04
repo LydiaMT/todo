@@ -46,10 +46,12 @@ function TodoList(props){
           </Modal.Dialog>
         </When>  
         <Button 
+          className="mb-2 mr-2"
           variant="success"
           onClick={() => context.changePendingTo(!context.pending)}
           >Show Pending Only</Button>
         <Button 
+          className="mb-2"
           variant="secondary"
           onClick={() => context.changeSortTo(!context.sortList)}
           >Sort by Difficulty</Button>

@@ -75,7 +75,7 @@ function ToDo(props){
         </h2>
         <section className="todo">
           <div>
-            <TodoForm 
+            <TodoForm
               addItem={addItem}
               />
           </div>
